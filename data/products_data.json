@@ -1,0 +1,262 @@
+[
+    {
+        "id": "CLT001",
+        "productName": "Premium Egyptian Cotton Oxford Shirt",
+        "price": 699.99,
+        "category": "shirts",
+        "image": "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?w=300",
+        "productDescription": "Crafted from 100% Egyptian cotton (120 thread count)\n\nMaterial Composition:\n- 100% Egyptian cotton\n- Mother of pearl buttons\n- Reinforced collar stays\n\nFit Details:\n- Regular fit through chest and waist\n- Shoulder-to-shoulder measurements: S(17\"), M(18\"), L(19\")\n- Center back length: 30 inches\n\nCare Instructions:\n- Machine wash cold\n- Tumble dry low\n- Iron on medium heat\n- Do not bleach\n\nDesign Features:\n- Button-down collar\n- Single chest pocket\n- Split yoke\n- Rounded hem\n\nStyling Tips:\n- Perfect for formal occasions when paired with tailored trousers\n- Can be dressed down with chinos for a smart-casual look\n- Layer under a blazer for business meetings",
+        "availableColours": ["White", "Light Blue", "Pink", "Light Grey", "Powder Blue"],
+        "sizes": ["S", "M", "L", "XL", "XXL"],
+        "discount": 0
+      },
+      {
+        "id": "CLT002",
+        "productName": "Stretch Denim High-Rise Jeans",
+        "price": 899.99,
+        "category": "jeans",
+        "image": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=300",
+        "productDescription": "Modern high-rise jeans with perfect stretch\n\nMaterial Composition:\n- 92% Cotton, 6% Polyester, 2% Elastane\n- Premium stretch denim\n- Brushed metal hardware\n\nFit Details:\n- High-rise fit: 11-inch rise\n- Slim through hip and thigh\n- Ankle length\n- Inseam: 28 inches\n\nCare Instructions:\n- Machine wash cold with similar colors\n- Inside out wash recommended\n- Tumble dry medium\n- Do not bleach\n\nDesign Features:\n- Sculpting stretch technology\n- Five-pocket styling\n- Contoured waistband\n- Reinforced belt loops\n\nStyling Tips:\n- Perfect with cropped tops for a modern look\n- Pair with ankle boots and blazer for office wear\n- Great with oversized sweaters for weekend style",
+        "availableColours": ["Dark Blue", "Mid Blue", "Light Wash", "Black"],
+        "sizes": ["24", "26", "28", "30", "32", "34"],
+        "discount": 0
+      },
+      {
+        "id": "CLT003",
+        "productName": "Quilted Winter Puffer Jacket",
+        "price": 1799.99,
+        "category": "jackets",
+        "image": "https://images.unsplash.com/photo-1544923246-77307b4754fe?w=300",
+        "productDescription": "Lightweight yet warm winter puffer jacket\n\nMaterial Composition:\n- Outer: 100% Recycled polyester\n- Fill: Premium synthetic down\n- Water-resistant coating\n- YKK zippers\n\nFit Details:\n- Regular fit with room for layering\n- Hip length\n- Sleeve length: 25 inches\n- Center back length: 26 inches\n\nCare Instructions:\n- Machine wash cold\n- Tumble dry low\n- No ironing required\n- Use wool dryer balls\n\nDesign Features:\n- Diamond quilting pattern\n- Stand-up collar with chin guard\n- Two zippered hand pockets\n- Internal chest pocket\n\nStyling Tips:\n- Layer over sweaters for extra warmth\n- Pairs well with both casual and athletic wear\n- Perfect for outdoor activities",
+        "availableColours": ["Black", "Navy", "Forest Green", "Burgundy"],
+        "sizes": ["XS", "S", "M", "L", "XL"],
+        "discount": 15
+      },
+      {
+        "id": "CLT004",
+        "productName": "Merino Wool Turtleneck Sweater",
+        "price": 1299.99,
+        "category": "knitwear",
+        "image": "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=300",
+        "productDescription": "Luxurious merino wool turtleneck sweater\n\nMaterial Composition:\n- 100% Extra-fine merino wool\n- 19.5 micron wool fiber\n- Ribbed texture\n\nFit Details:\n- Slim fit silhouette\n- Full length sleeves\n- Ribbed turtleneck\n- Length: 24 inches\n\nCare Instructions:\n- Hand wash cold\n- Lay flat to dry\n- Do not wring\n- Dry clean recommended\n\nDesign Features:\n- Ribbed cuffs and hem\n- Seamless construction\n- Double-layer turtleneck\n- Reinforced shoulders\n\nStyling Tips:\n- Perfect under blazers for office wear\n- Pair with high-waisted pants\n- Layer under coats for winter",
+        "availableColours": ["Cream", "Black", "Grey Melange", "Camel"],
+        "sizes": ["XS", "S", "M", "L", "XL"],
+        "discount": 0
+      },
+     
+          {
+            "id": "CLT005",
+            "productName": "Pleated Midi Skirt",
+            "price": 899.99,
+            "category": "skirts",
+            "image": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=300",
+            "productDescription": "Elegant pleated midi skirt with flowing movement\n\nMaterial Composition:\n- 100% Polyester pleated fabric\n- Satin-finish lining\n- Hidden zipper closure\n\nFit Details:\n- A-line silhouette\n- Midi length: 32 inches\n- High-rise waist\n- Elastic waistband panel\n\nCare Instructions:\n- Dry clean only\n- Do not wring or twist\n- Cool iron if needed\n- Store on padded hanger\n\nDesign Features:\n- Permanent pleating\n- Side seam pockets\n- Smooth waistband\n- Full circle sweep\n\nStyling Tips:\n- Pair with fitted turtleneck for classic look\n- Add chunky sneakers for modern style\n- Perfect with cropped jackets",
+            "availableColours": ["Black", "Navy", "Champagne", "Forest Green"],
+            "sizes": ["XS", "S", "M", "L", "XL"],
+            "discount": 0
+          },
+          {
+            "id": "CLT006",
+            "productName": "Linen Blend Blazer",
+            "price": 1599.99,
+            "category": "jackets",
+            "image": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=300",
+            "productDescription": "Sophisticated linen blend blazer for summer\n\nMaterial Composition:\n- 55% Linen, 45% Cotton\n- Breathable weave\n- Premium horn buttons\n\nFit Details:\n- Relaxed fit\n- Single-breasted design\n- Shoulder padding\n- Length: 28 inches\n\nCare Instructions:\n- Dry clean recommended\n- Steam to remove wrinkles\n- Store on wide hanger\n- Avoid direct sunlight\n\nDesign Features:\n- Notched lapels\n- Three patch pockets\n- Double back vent\n- Three-button cuffs\n\nStyling Tips:\n- Perfect for summer weddings\n- Pair with linen pants for full suit\n- Wear with jeans for casual look",
+            "availableColours": ["Beige", "Light Grey", "Navy", "Sage"],
+            "sizes": ["S", "M", "L", "XL", "XXL"],
+            "discount": 20
+          },
+          {
+            "id": "CLT007",
+            "productName": "Leather Chelsea Boots",
+            "price": 2499.99,
+            "category": "shoes",
+            "image": "https://images.unsplash.com/photo-1638247025967-b4e38f787b76?w=300",
+            "productDescription": "Classic leather Chelsea boots with elastic sides\n\nMaterial Composition:\n- Full-grain leather upper\n- Leather lining\n- Goodyear welted construction\n- Rubber sole\n\nFit Details:\n- True to size\n- 6cm heel height\n- Ankle height\n- Elastic side panels\n\nCare Instructions:\n- Clean with leather cleaner\n- Polish regularly\n- Use shoe trees\n- Protect from water\n\nDesign Features:\n- Pull tabs\n- Elastic side panels\n- Stacked heel\n- Reinforced toe\n\nStyling Tips:\n- Perfect with tailored trousers\n- Great with slim jeans\n- Versatile for office and casual wear",
+            "availableColours": ["Black", "Brown", "Tan", "Burgundy"],
+            "sizes": ["UK6", "UK7", "UK8", "UK9", "UK10", "UK11"],
+            "discount": 0
+          },
+          {
+            "id": "CLT008",
+            "productName": "Silk Wrap Dress",
+            "price": 2999.99,
+            "category": "dresses",
+            "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300",
+            "productDescription": "Luxurious silk wrap dress for special occasions\n\nMaterial Composition:\n- 100% Mulberry silk\n- French seams\n- Self-tie belt\n\nFit Details:\n- True wrap style\n- Midi length\n- V-neckline\n- Adjustable waist\n\nCare Instructions:\n- Dry clean only\n- Steam to remove wrinkles\n- Store on padded hanger\n- Avoid direct sunlight\n\nDesign Features:\n- Flutter sleeves\n- High-low hem\n- Hidden closure\n- Side slits\n\nStyling Tips:\n- Perfect for formal events\n- Layer with blazer for office\n- Add statement jewelry",
+            "availableColours": ["Emerald", "Navy", "Ruby", "Black"],
+            "sizes": ["XS", "S", "M", "L", "XL"],
+            "discount": 0
+          }
+       ,
+      
+          {
+            "id": "CLT009",
+            "productName": "Cropped Denim Jacket",
+            "price": 899.99,
+            "category": "jackets",
+            "image": "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=300",
+            "productDescription": "Trendy cropped denim jacket\n\nMaterial Composition:\n- 100% Cotton denim\n- Brass buttons\n- Contrast stitching\n\nFit Details:\n- Cropped length: 20 inches\n- Slightly oversized shoulders\n- Fitted through body\n- Drop shoulder design\n\nCare Instructions:\n- Machine wash cold\n- Tumble dry low\n- Wash with similar colors\n- Turn inside out to wash\n\nDesign Features:\n- Raw hem finish\n- Chest flap pockets\n- Side welt pockets\n- Adjustable waist tabs\n\nStyling Tips:\n- Perfect with high-waisted pants\n- Layer over summer dresses\n- Pair with athletic wear for contrast",
+            "availableColours": ["Light Wash", "Medium Wash", "Dark Wash", "Black"],
+            "sizes": ["XS", "S", "M", "L", "XL"],
+            "discount": 0
+          },
+          {
+            "id": "CLT010",
+            "productName": "Cashmere Blend Cardigan",
+            "price": 1799.99,
+            "category": "knitwear",
+            "image": "https://images.unsplash.com/photo-1619603364904-c0498317e145?w=300",
+            "productDescription": "Luxurious cashmere blend button-up cardigan\n\nMaterial Composition:\n- 70% Wool, 30% Cashmere\n- Mother of pearl buttons\n- Ribbed trim\n\nFit Details:\n- Regular fit\n- Hip length\n- V-neckline\n- Full length sleeves\n\nCare Instructions:\n- Hand wash cold\n- Lay flat to dry\n- Reshape while damp\n- Store folded\n\nDesign Features:\n- Front button closure\n- Patch pockets\n- Ribbed cuffs and hem\n- Reinforced button holes\n\nStyling Tips:\n- Layer over silk camisole\n- Perfect for office wear\n- Casual with jeans and t-shirt",
+            "availableColours": ["Cream", "Grey", "Navy", "Camel"],
+            "sizes": ["S", "M", "L", "XL"],
+            "discount": 15
+          },
+          {
+            "id": "CLT011",
+            "productName": "Wide-Leg Linen Trousers",
+            "price": 999.99,
+            "category": "pants",
+            "image": "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=300",
+            "productDescription": "Breezy wide-leg linen trousers\n\nMaterial Composition:\n- 100% Pure linen\n- French seams\n- Horn button closure\n\nFit Details:\n- High-rise waist\n- Wide leg silhouette\n- Ankle length\n- 30-inch inseam\n\nCare Instructions:\n- Machine wash cold\n- Line dry\n- Iron while slightly damp\n- Medium iron temperature\n\nDesign Features:\n- Pleated front\n- Side pockets\n- Back welt pockets\n- Belt loops\n\nStyling Tips:\n- Perfect with fitted tops\n- Add heels for elegant look\n- Casual with sandals and tank top",
+            "availableColours": ["Natural", "White", "Black", "Olive"],
+            "sizes": ["XS", "S", "M", "L", "XL"],
+            "discount": 0
+          },
+          {
+            "id": "CLT012",
+            "productName": "Platform Canvas Sneakers",
+            "price": 699.99,
+            "category": "shoes",
+            "image": "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=300",
+            "productDescription": "Trendy platform canvas sneakers\n\nMaterial Composition:\n- Heavy duty canvas upper\n- Rubber platform sole\n- Cotton laces\n- Memory foam insole\n\nFit Details:\n- 4cm platform height\n- Regular fit\n- Lace-up closure\n- Cushioned collar\n\nCare Instructions:\n- Spot clean with mild soap\n- Air dry naturally\n- Remove laces to clean\n- Use shoe deodorizer\n\nDesign Features:\n- Contrast stitching\n- Reinforced toe cap\n- Padded tongue\n- Extra durable eyelets\n\nStyling Tips:\n- Great with midi dresses\n- Perfect for casual wear\n- Pair with cropped jeans",
+            "availableColours": ["White", "Black", "Navy", "Red"],
+            "sizes": ["UK4", "UK5", "UK6", "UK7", "UK8"],
+            "discount": 20
+          },
+          {
+            "id": "CLT013",
+            "productName": "Printed Silk Scarf",
+            "price": 499.99,
+            "category": "accessories",
+            "image": "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=300",
+            "productDescription": "Elegant printed silk scarf\n\nMaterial Composition:\n- 100% Mulberry silk\n- Hand-rolled edges\n- Digital print design\n\nFit Details:\n- 90cm x 90cm square\n- Lightweight fabric\n- Smooth finish\n- Versatile size\n\nCare Instructions:\n- Hand wash cold\n- Do not wring\n- Iron on silk setting\n- Store folded\n\nDesign Features:\n- Abstract floral print\n- Hand-rolled edges\n- Signature corner detail\n- Premium finish\n\nStyling Tips:\n- Wear as neck scarf\n- Use as hair accessory\n- Tie on handbag\n- Perfect for gift-giving",
+            "availableColours": ["Multi-Blue", "Multi-Pink", "Multi-Green", "Multi-Purple"],
+            "sizes": ["One Size"],
+            "discount": 0
+          }
+   ,
+      {
+        "id": "CLT014",
+        "productName": "Satin Slip Dress",
+        "price": 1299.99,
+        "category": "dresses",
+        "image": "https://images.unsplash.com/photo-1566491888763-e71518bbe846?w=300",
+        "productDescription": "Elegant satin slip dress\n\nMaterial Composition:\n- 100% Premium silk satin\n- Bias cut construction\n- Adjustable straps\n\nFit Details:\n- Midi length: 45 inches\n- Slim fit through body\n- Side slits: 12 inches\n- Cowl neckline\n\nCare Instructions:\n- Dry clean only\n- Store on padded hanger\n- Steam to remove wrinkles\n- Avoid direct sunlight\n\nDesign Features:\n- Cowl neckline\n- Adjustable shoulder straps\n- Side split hem\n- Back zip closure\n\nStyling Tips:\n- Layer with oversized blazer\n- Wear with strappy heels\n- Add chunky knit for day wear",
+        "availableColours": ["Black", "Navy", "Champagne", "Sage Green"],
+        "sizes": ["XS", "S", "M", "L", "XL"],
+        "discount": 0
+      },
+      {
+        "id": "CLT015",
+        "productName": "Tailored Wool Trousers",
+        "price": 1499.99,
+        "category": "pants",
+        "image": "https://images.unsplash.com/photo-1594633313593-89bbf62c5c51?w=300",
+        "productDescription": "Classic tailored wool trousers\n\nMaterial Composition:\n- 100% Australian wool\n- Italian fabric\n- Satin pocket lining\n\nFit Details:\n- Mid-rise waist\n- Straight leg cut\n- 32-inch inseam\n- Tailored fit\n\nCare Instructions:\n- Dry clean only\n- Press with damp cloth\n- Store on trouser hanger\n- Brush after wearing\n\nDesign Features:\n- Front pleats\n- Side slant pockets\n- Back welt pockets\n- Extended tab closure\n\nStyling Tips:\n- Perfect for formal occasions\n- Pair with silk blouse\n- Great with loafers",
+        "availableColours": ["Charcoal", "Navy", "Black", "Grey"],
+        "sizes": ["34", "36", "38", "40", "42", "44"],
+        "discount": 10
+      },
+      {
+        "id": "CLT016",
+        "productName": "Quilted Crossbody Bag",
+        "price": 899.99,
+        "category": "accessories",
+        "image": "https://images.unsplash.com/photo-1597633425046-08f5110420b5?w=300",
+        "productDescription": "Stylish quilted crossbody bag\n\nMaterial Composition:\n- Premium vegan leather\n- Cotton canvas lining\n- Gold-tone hardware\n\nFit Details:\n- 8\" x 6\" x 3\"\n- 22\" strap drop\n- Adjustable strap\n- Multiple compartments\n\nCare Instructions:\n- Wipe clean with damp cloth\n- Store in dust bag\n- Avoid water exposure\n- Condition regularly\n\nDesign Features:\n- Diamond quilting\n- Chain strap detail\n- Multiple pockets\n- Magnetic closure\n\nStyling Tips:\n- Perfect for day to night\n- Matches any outfit\n- Ideal size for essentials",
+        "availableColours": ["Black", "Tan", "Navy", "Red"],
+        "sizes": ["One Size"],
+        "discount": 0
+      },
+      {
+        "id": "CLT017",
+        "productName": "Cotton Poplin Shirt Dress",
+        "price": 1199.99,
+        "category": "dresses",
+        "image": "https://images.unsplash.com/photo-1585487000160-6ebcfceb0d03?w=300",
+        "productDescription": "Versatile cotton poplin shirt dress\n\nMaterial Composition:\n- 100% Cotton poplin\n- Pearl buttons\n- Self-tie belt\n\nFit Details:\n- Relaxed fit\n- Knee length\n- Button-through front\n- Adjustable waist\n\nCare Instructions:\n- Machine wash cold\n- Tumble dry low\n- Warm iron if needed\n- Wash with similar colors\n\nDesign Features:\n- Point collar\n- Roll-up sleeve tabs\n- Side seam pockets\n- Curved hem\n\nStyling Tips:\n- Belt for defined waist\n- Layer over pants\n- Add sneakers for casual look",
+        "availableColours": ["White", "Light Blue", "Pink", "Black"],
+        "sizes": ["XS", "S", "M", "L", "XL"],
+        "discount": 15
+      },
+      {
+        "id": "CLT018",
+        "productName": "Leather Block Heel Sandals",
+        "price": 1299.99,
+        "category": "shoes",
+        "image": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=300",
+        "productDescription": "Classic leather block heel sandals\n\nMaterial Composition:\n- Genuine leather upper\n- Leather lining\n- Cushioned insole\n- Rubber sole\n\nFit Details:\n- 6cm block heel\n- Ankle strap closure\n- True to size fit\n- Wide front strap\n\nCare Instructions:\n- Clean with leather cleaner\n- Store with shoe trees\n- Apply leather conditioner\n- Protect from water\n\nDesign Features:\n- Adjustable ankle strap\n- Square toe design\n- Padded footbed\n- Non-slip sole\n\nStyling Tips:\n- Perfect for summer dresses\n- Great with cropped pants\n- Ideal for outdoor events",
+        "availableColours": ["Black", "Tan", "White", "Metallic Gold"],
+        "sizes": ["UK4", "UK5", "UK6", "UK7", "UK8"],
+        "discount": 0
+      }
+,
+      {
+        "id": "CLT019",
+        "productName": "Chunky Knit Sweater",
+        "price": 1399.99,
+        "category": "knitwear",
+        "image": "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=300",
+        "productDescription": "Oversized chunky knit sweater\n\nMaterial Composition:\n- 80% Wool, 20% Nylon\n- Chunky cable knit pattern\n- Reinforced seams\n\nFit Details:\n- Oversized fit\n- Drop shoulders\n- Length: 27 inches\n- Balloon sleeves\n\nCare Instructions:\n- Hand wash cold\n- Lay flat to dry\n- No wringing or twisting\n- Reshape while damp\n\nDesign Features:\n- Cable knit pattern\n- Ribbed crew neckline\n- Extended cuffs\n- Side splits\n\nStyling Tips:\n- Layer over slim-fit dresses\n- Perfect with leather leggings\n- Pair with midi skirts",
+        "availableColours": ["Ivory", "Charcoal", "Camel", "Forest Green"],
+        "sizes": ["S/M", "M/L", "L/XL"],
+        "discount": 0
+      },
+      {
+        "id": "CLT020",
+        "productName": "High-Rise Yoga Leggings",
+        "price": 799.99,
+        "category": "activewear",
+        "image": "https://images.unsplash.com/photo-1547638375-ebf04735d578?w=300",
+        "productDescription": "Performance high-rise yoga leggings\n\nMaterial Composition:\n- 78% Recycled polyester, 22% Spandex\n- Moisture-wicking fabric\n- Four-way stretch\n- Antimicrobial treatment\n\nFit Details:\n- High-rise waistband\n- Second-skin fit\n- 7/8 length\n- Gusset for mobility\n\nCare Instructions:\n- Machine wash cold\n- Tumble dry low\n- No fabric softener\n- Wash with similar colors\n\nDesign Features:\n- Hidden waistband pocket\n- Flatlock seams\n- No side seams\n- Squat-proof fabric\n\nStyling Tips:\n- Perfect for yoga or gym\n- Pair with oversized sweatshirt\n- Great for casual wear",
+        "availableColours": ["Black", "Navy", "Deep Purple", "Forest Green"],
+        "sizes": ["XS", "S", "M", "L", "XL"],
+        "discount": 0
+      },
+      {
+        "id": "CLT021",
+        "productName": "Structured Blazer Dress",
+        "price": 1899.99,
+        "category": "dresses",
+        "image": "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=300",
+        "productDescription": "Smart blazer dress with belt\n\nMaterial Composition:\n- 95% Polyester, 5% Elastane\n- Lined bodice\n- Premium buttons\n\nFit Details:\n- Double-breasted style\n- Mini length\n- Fitted silhouette\n- Padded shoulders\n\nCare Instructions:\n- Dry clean only\n- Steam to refresh\n- Store on padded hanger\n- Avoid direct sunlight\n\nDesign Features:\n- Notched lapels\n- Gold-tone buttons\n- Self-tie belt\n- Front flap pockets\n\nStyling Tips:\n- Wear with knee-high boots\n- Add tights for winter\n- Perfect for office wear",
+        "availableColours": ["Black", "White", "Navy", "Beige"],
+        "sizes": ["XS", "S", "M", "L", "XL"],
+        "discount": 15
+      },
+      {
+        "id": "CLT022",
+        "productName": "Leather Mini Backpack",
+        "price": 1299.99,
+        "category": "accessories",
+        "image": "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=300",
+        "productDescription": "Stylish leather mini backpack\n\nMaterial Composition:\n- Genuine leather exterior\n- Canvas lining\n- Brass hardware\n- YKK zippers\n\nFit Details:\n- Height: 10 inches\n- Width: 8 inches\n- Depth: 4 inches\n- Adjustable straps\n\nCare Instructions:\n- Wipe clean with damp cloth\n- Treat with leather conditioner\n- Store stuffed\n- Avoid rain exposure\n\nDesign Features:\n- Front zip pocket\n- Interior laptop sleeve\n- Side water bottle pockets\n- Top handle\n\nStyling Tips:\n- Perfect for everyday use\n- Matches casual outfits\n- Ideal for travel",
+        "availableColours": ["Black", "Tan", "Navy", "Burgundy"],
+        "sizes": ["One Size"],
+        "discount": 0
+      },
+      {
+        "id": "CLT023",
+        "productName": "Printed Maxi Kimono",
+        "price": 999.99,
+        "category": "outerwear",
+        "image": "https://images.unsplash.com/photo-1589294939725-991f779721f5?w=300",
+        "productDescription": "Flowing printed maxi kimono\n\nMaterial Composition:\n- 100% Viscose\n- Lightweight fabric\n- French seams\n\nFit Details:\n- One size fits most\n- Length: 52 inches\n- Wide sleeves\n- Open front\n\nCare Instructions:\n- Hand wash cold\n- Line dry\n- Cool iron if needed\n- Do not wring\n\nDesign Features:\n- All-over print\n- Side splits\n- Wide sleeve openings\n- Optional tie belt\n\nStyling Tips:\n- Layer over swimwear\n- Wear with jeans and tank\n- Perfect beach cover-up",
+        "availableColours": ["Blue Multi", "Pink Multi", "Green Multi", "Black Multi"],
+        "sizes": ["One Size"],
+        "discount": 20
+      }
+  
+
+]
