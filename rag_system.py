@@ -228,6 +228,7 @@ class ImprovedFeedbackManager:
 
 
 
+    
     def _store_feedback(self, feedback: Feedback) -> bool:
         """Internal method to store feedback in the database."""
         query = """
@@ -248,14 +249,29 @@ class ImprovedFeedbackManager:
                     cur.execute(
                         """
                         INSERT INTO conversations 
-                        (id, session_id, question, answer, timestamp) 
-                        VALUES (%s, %s, %s, %s, %s)
+                        (id, session_id, question, answer, model_used, 
+                        response_time, relevance, relevance_explanation, 
+                        prompt_tokens, completion_tokens, total_tokens,
+                        eval_prompt_tokens, eval_completion_tokens, 
+                        eval_total_tokens, openai_cost, timestamp) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                         """,
                         (
                             feedback.conversation_id, 
-                            session_id,  # Add a session_id
+                            session_id,  # session_id
                             "Unknown Question", 
                             "No Answer Recorded", 
+                            "unknown",  # model_used
+                            0.0,        # response_time
+                            "UNKNOWN",  # relevance
+                            "",         # relevance_explanation
+                            0,          # prompt_tokens
+                            0,          # completion_tokens
+                            0,          # total_tokens
+                            0,          # eval_prompt_tokens
+                            0,          # eval_completion_tokens
+                            0,          # eval_total_tokens
+                            0.0,        # openai_cost
                             feedback.timestamp
                         )
                     )
@@ -269,6 +285,7 @@ class ImprovedFeedbackManager:
                 ))
                 conn.commit()
                 return True
+
     def get_feedback_stats(self) -> Dict[str, int]:
         """Get feedback statistics."""
         return self.db_manager.get_feedback_stats()
