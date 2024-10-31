@@ -3,17 +3,51 @@ import time
 import uuid
 import logging
 import argparse
+import json
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from typing import Dict, Any, Tuple, List, Optional
+from dataclasses import dataclass
+from contextlib import contextmanager
+
 from sentence_transformers import SentenceTransformer
 from elasticsearch import Elasticsearch
 from groq import Groq
 from redis import Redis
 from dotenv import load_dotenv
-import json
 import psycopg2
 from psycopg2.extras import DictCursor
+
+from dataclasses import dataclass
+from datetime import datetime
+from typing import Optional
+
+@dataclass
+class Conversation:
+    id: str
+    session_id: str
+    question: str
+    answer: str
+    model_used: str
+    response_time: float
+    relevance: str
+    relevance_explanation: str
+    prompt_tokens: int
+    completion_tokens: int
+    total_tokens: int
+    eval_prompt_tokens: int
+    eval_completion_tokens: int
+    eval_total_tokens: int
+    timestamp: datetime
+
+@dataclass
+class Feedback:
+    id: Optional[str]
+    conversation_id: str
+    feedback: int
+    comment: str
+    timestamp: datetime
+
 
 # Load environment variables
 load_dotenv()
@@ -21,57 +55,131 @@ load_dotenv()
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def get_db_connection():
-    """Create a database connection."""
-    try:
-        return psycopg2.connect(os.getenv('DATABASE_URL'))
-    except Exception as e:
-        logging.error(f"Database connection error: {e}")
-        return None
+class DatabaseError(Exception):
+    """Custom exception for database operations."""
+    pass
 
-class FeedbackManager:
-    """Manages user feedback in PostgreSQL."""
+class DatabaseManager:
+    """Manages all database operations with proper connection handling."""
     
-    def __init__(self):
-        """Initialize FeedbackManager."""
-        self.tz = ZoneInfo(os.getenv("TZ", "UTC"))
+    def __init__(self, database_url: str):
+        self.database_url = database_url
     
-    def add_feedback(self, conversation_id: str, feedback: int, comment: str = "") -> bool:
-        """Stores feedback for a specific conversation."""
-        conn = get_db_connection()
-        if conn is None:
-            return False
-        
+    @contextmanager
+    def get_connection(self):
+        """Context manager for database connections."""
+        conn = None
         try:
-            timestamp = datetime.now(self.tz)
+            conn = psycopg2.connect(self.database_url)
+            yield conn
+        except Exception as e:
+            if conn:
+                conn.rollback()
+            raise DatabaseError(f"Database operation failed: {str(e)}")
+        finally:
+            if conn:
+                conn.close()
+
+    def save_conversation(self, conversation: Conversation) -> bool:
+        """Stores a conversation in the database."""
+        query = """
+            INSERT INTO conversations (
+                id, session_id, question, answer, model_used, 
+                response_time, relevance, relevance_explanation,
+                prompt_tokens, completion_tokens, total_tokens,
+                eval_prompt_tokens, eval_completion_tokens, eval_total_tokens,
+                openai_cost, timestamp
+            ) VALUES (
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+            )
+        """
+        
+        # Calculate OpenAI cost based on token usage
+        openai_cost = calculate_groq_cost({
+            'prompt_tokens': conversation.prompt_tokens + conversation.eval_prompt_tokens,
+            'completion_tokens': conversation.completion_tokens + conversation.eval_completion_tokens
+        })
+        
+        with self.get_connection() as conn:
             with conn.cursor() as cur:
-                # First verify the conversation exists
-                cur.execute("SELECT id FROM conversations WHERE id = %s", (conversation_id,))
-                if cur.fetchone() is None:
-                    logging.error(f"Conversation {conversation_id} not found")
-                    return False
-                
-                # Insert the feedback
-                cur.execute("""
-                    INSERT INTO feedback (conversation_id, feedback, comment, timestamp)
-                    VALUES (%s, %s, %s, %s)
-                """, (conversation_id, feedback, comment, timestamp))
+                cur.execute(query, (
+                    conversation.id,
+                    conversation.session_id,
+                    conversation.question,
+                    conversation.answer,
+                    conversation.model_used,
+                    conversation.response_time,
+                    conversation.relevance,
+                    conversation.relevance_explanation,
+                    conversation.prompt_tokens,
+                    conversation.completion_tokens,
+                    conversation.total_tokens,
+                    conversation.eval_prompt_tokens,
+                    conversation.eval_completion_tokens,
+                    conversation.eval_total_tokens,
+                    openai_cost,
+                    conversation.timestamp
+                ))
                 conn.commit()
                 return True
-        except Exception as e:
-            logging.error(f"Error storing feedback: {e}")
-            conn.rollback()
-            return False
-        finally:
-            conn.close()
+
+
+
+
+
+
+class DatabaseManager:
+    """Manages all database operations with proper connection handling."""
     
+    def __init__(self, database_url: str):
+        self.database_url = database_url
+    
+    @contextmanager
+    def get_connection(self):
+        """Context manager for database connections."""
+        conn = None
+        try:
+            conn = psycopg2.connect(self.database_url)
+            yield conn
+        except Exception as e:
+            if conn:
+                conn.rollback()
+            raise DatabaseError(f"Database operation failed: {str(e)}")
+        finally:
+            if conn:
+                conn.close()
+
+    def save_conversation(self, conversation: Conversation) -> bool:
+        """Stores a conversation in the database."""
+        query = """
+            INSERT INTO conversations (
+                id, session_id, question, answer, model_used, 
+                response_time, relevance, relevance_explanation,
+                prompt_tokens, completion_tokens, total_tokens,
+                eval_prompt_tokens, eval_completion_tokens, eval_total_tokens,
+                timestamp
+            ) VALUES (
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+            )
+        """
+        with self.get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, (
+                    conversation.id, conversation.session_id,
+                    conversation.question, conversation.answer,
+                    conversation.model_used, conversation.response_time,
+                    conversation.relevance, conversation.relevance_explanation,
+                    conversation.prompt_tokens, conversation.completion_tokens,
+                    conversation.total_tokens, conversation.eval_prompt_tokens,
+                    conversation.eval_completion_tokens, conversation.eval_total_tokens,
+                    conversation.timestamp
+                ))
+                conn.commit()
+                return True
+
     def get_feedback_stats(self) -> Dict[str, int]:
         """Retrieves overall feedback statistics."""
-        conn = get_db_connection()
-        if conn is None:
-            return {"thumbs_up": 0, "thumbs_down": 0}
-        
-        try:
+        with self.get_connection() as conn:
             with conn.cursor(cursor_factory=DictCursor) as cur:
                 cur.execute("""
                     SELECT 
@@ -84,25 +192,122 @@ class FeedbackManager:
                     "thumbs_up": result["thumbs_up"] or 0,
                     "thumbs_down": result["thumbs_down"] or 0
                 }
-        except Exception as e:
-            logging.error(f"Error getting feedback stats: {e}")
-            return {"thumbs_up": 0, "thumbs_down": 0}
-        finally:
-            conn.close()
 
-class RedisMemoryManager:
-    """Manages conversation history in Redis with automatic expiration."""
+class ImprovedFeedbackManager:
+    """Enhanced feedback management with better error handling and validation."""
     
-    def __init__(self, redis_url='redis://localhost:6379', expiration_time=3600):
+    def __init__(self, db_manager: DatabaseManager, tz: ZoneInfo):
+        self.db_manager = db_manager
+        self.tz = tz
+
+    def validate_feedback(self, feedback: int, conversation_id: str) -> None:
+        """Validates feedback data."""
+        if feedback not in (0, 1):
+            raise ValueError("Feedback must be either 0 or 1")
+        if not conversation_id:
+            raise ValueError("Conversation ID is required")
+
+    def add_feedback(self, conversation_id: str, feedback: int, comment: str = "") -> bool:
+        """Stores feedback with improved validation and error handling."""
+        try:
+            self.validate_feedback(feedback, conversation_id)
+            feedback_obj = Feedback(
+                id=None,
+                conversation_id=conversation_id,
+                feedback=feedback,
+                comment=comment,
+                timestamp=datetime.now(self.tz)
+            )
+            return self._store_feedback(feedback_obj)
+        except ValueError as e:
+            logging.error(f"Validation error: {str(e)}")
+            raise
+        except Exception as e:
+            logging.error(f"Error storing feedback: {str(e)}")
+            return False
+
+
+
+    def _store_feedback(self, feedback: Feedback) -> bool:
+        """Internal method to store feedback in the database."""
+        query = """
+            INSERT INTO feedback (conversation_id, feedback, comment, timestamp)
+            VALUES (%s, %s, %s, %s)
+            """
+        with self.db_manager.get_connection() as conn:
+            with conn.cursor() as cur:
+                # Verify the conversation exists first
+                cur.execute(
+                    "SELECT id FROM conversations WHERE id = %s",
+                    (feedback.conversation_id,)
+                )
+                if cur.fetchone() is None:
+                    # If conversation doesn't exist, we need to save it first
+                    # Generate a session_id if not provided
+                    session_id = str(uuid.uuid4())
+                    cur.execute(
+                        """
+                        INSERT INTO conversations 
+                        (id, session_id, question, answer, timestamp) 
+                        VALUES (%s, %s, %s, %s, %s)
+                        """,
+                        (
+                            feedback.conversation_id, 
+                            session_id,  # Add a session_id
+                            "Unknown Question", 
+                            "No Answer Recorded", 
+                            feedback.timestamp
+                        )
+                    )
+                
+                # Now insert the feedback
+                cur.execute(query, (
+                    feedback.conversation_id,
+                    feedback.feedback,
+                    feedback.comment,
+                    feedback.timestamp
+                ))
+                conn.commit()
+                return True
+    def get_feedback_stats(self) -> Dict[str, int]:
+        """Get feedback statistics."""
+        return self.db_manager.get_feedback_stats()
+
+class ImprovedRedisMemoryManager:
+    """Enhanced Redis memory management with better serialization and error handling."""
+    
+    def __init__(self, redis_url: str, db_manager: DatabaseManager, 
+                 expiration_time: int = 3600):
         self.redis_client = Redis.from_url(redis_url, decode_responses=True)
         self.session_id = str(uuid.uuid4())
         self.expiration_time = expiration_time
-        self.feedback_manager = FeedbackManager()
-    
+        self.db_manager = db_manager
+        self.feedback_manager = ImprovedFeedbackManager(
+            db_manager=db_manager,
+            tz=ZoneInfo(os.getenv("TZ", "UTC"))
+        )
+
     def _get_key(self) -> str:
         return f"conversation:{self.session_id}"
-    
+
+    def serialize_message(self, message: Dict[str, Any]) -> str:
+        """Serializes message with error handling."""
+        try:
+            return json.dumps(message)
+        except json.JSONEncodeError as e:
+            logging.error(f"Error serializing message: {str(e)}")
+            raise
+
+    def deserialize_message(self, message: str) -> Dict[str, Any]:
+        """Deserializes message with error handling."""
+        try:
+            return json.loads(message)
+        except json.JSONDecodeError as e:
+            logging.error(f"Error deserializing message: {str(e)}")
+            raise
+
     def add_message(self, role: str, content: str, metadata: Dict[str, Any]) -> None:
+        """Adds a message to Redis and optionally persists to PostgreSQL."""
         key = self._get_key()
         message = {
             "role": role,
@@ -110,29 +315,84 @@ class RedisMemoryManager:
             "metadata": metadata,
             "timestamp": datetime.now().isoformat()
         }
-        self.redis_client.rpush(key, json.dumps(message))
+        
+        # Store in Redis
+        serialized_message = self.serialize_message(message)
+        self.redis_client.rpush(key, serialized_message)
         self.redis_client.expire(key, self.expiration_time)
-    
+        
+        # If it's a complete conversation (both question and answer), persist to PostgreSQL
+        if role == "assistant" and metadata.get("conversation_id"):
+            self._persist_conversation(message, metadata)
+
+    def _get_last_user_message(self) -> Dict[str, Any]:
+        """Retrieves the last user message from the conversation history."""
+        messages = self.get_conversation_history()
+        for message in reversed(messages):
+            if message["role"] == "user":
+                return message
+        raise ValueError("No user message found in conversation history")
+
+    def _persist_conversation(self, message: Dict[str, Any], 
+                            metadata: Dict[str, Any]) -> None:
+        """Persists the conversation to PostgreSQL."""
+        try:
+            last_user_message = self._get_last_user_message()
+            conversation = Conversation(
+                id=metadata["conversation_id"],
+                session_id=self.session_id,
+                question=last_user_message["content"],
+                answer=message["content"],
+                model_used=metadata.get("model_used", "unknown"),
+                response_time=metadata.get("response_time", 0.0),
+                relevance=metadata.get("relevance", "unknown"),
+                relevance_explanation=metadata.get("relevance_explanation", ""),
+                prompt_tokens=metadata.get("prompt_tokens", 0),
+                completion_tokens=metadata.get("completion_tokens", 0),
+                total_tokens=metadata.get("total_tokens", 0),
+                eval_prompt_tokens=metadata.get("eval_prompt_tokens", 0),
+                eval_completion_tokens=metadata.get("eval_completion_tokens", 0),
+                eval_total_tokens=metadata.get("eval_total_tokens", 0),
+                timestamp=datetime.now(ZoneInfo("UTC"))
+            )
+            
+            self.db_manager.save_conversation(conversation)
+        except Exception as e:
+            logging.error(f"Error persisting conversation: {str(e)}")
+            # Continue execution even if persistence fails
+
     def get_conversation_history(self, limit: int = 10) -> List[Dict[str, Any]]:
+        """Retrieves conversation history from Redis."""
         key = self._get_key()
         messages = self.redis_client.lrange(key, -limit, -1)
-        return [json.loads(msg) for msg in messages]
-    
+        return [self.deserialize_message(msg) for msg in messages]
+
     def clear_history(self) -> None:
+        """Clears the conversation history from Redis."""
         key = self._get_key()
         self.redis_client.delete(key)
 
 class RAGSystem:
     def __init__(self, 
-                 es_url='http://localhost:9200',
-                 model_name='multi-qa-MiniLM-L6-cos-v1',
-                 memory_expiration=3600):
+                 es_url: str = 'http://localhost:9200',
+                 model_name: str = 'multi-qa-MiniLM-L6-cos-v1',
+                 redis_url: str = 'redis://localhost:6379',
+                 memory_expiration: int = 3600):
         self.es_client = Elasticsearch([es_url])
         self.model = SentenceTransformer(model_name)
-        self.memory = RedisMemoryManager(expiration_time=memory_expiration)
+        self.db_manager = DatabaseManager(database_url=f"host={os.getenv('POSTGRES_HOST_LOCAL')} " \
+                 f"dbname={os.getenv('POSTGRES_DB')} " \
+                 f"user={os.getenv('POSTGRES_USER')} " \
+                 f"password={os.getenv('POSTGRES_PASSWORD')} " \
+                 f"port={os.getenv('POSTGRES_PORT')}")
+        self.memory = ImprovedRedisMemoryManager(
+            redis_url=redis_url,
+            db_manager=self.db_manager,
+            expiration_time=memory_expiration
+        )
         self.groq_client = Groq(api_key=os.getenv('GROQ_API_KEY'))
         self.session_id = self.memory.session_id
-        
+
     def elastic_search_hybrid(self, query: str, index_name: str = "ecommerce-products") -> list:
         """Performs hybrid search combining vector similarity and keyword matching."""
         query_vector = self.model.encode(query).tolist()
@@ -267,23 +527,22 @@ class RAGSystem:
             response = "I apologize, but I couldn't find any relevant products matching your query. Could you please try rephrasing your question?"
             self.memory.add_message("assistant", response, metadata)
             return {
-                "id": conversation_id,
-                "session_id": self.session_id,
-                "question": query,
-                "answer": response,
-                "model_used": model,
-                "response_time": 0,
-                "relevance": "no_results",
-                "relevance_explanation": "No matching products found in the database.",
-                "prompt_tokens": 0,
-                "completion_tokens": 0,
-                "total_tokens": 0,
-                "eval_prompt_tokens": 0,
-                "eval_completion_tokens": 0,
-                "eval_total_tokens": 0,
-                "openai_cost": 0,
-                "timestamp": datetime.now(ZoneInfo("UTC"))
-            }
+                   "id": conversation_id,
+                    "session_id": self.session_id,
+                    "question": query,
+                    "answer": response,
+                    "model_used": model,
+                    "response_time": response_time,
+                    "relevance": relevance,
+                    "relevance_explanation": explanation,
+                    "prompt_tokens": usage_stats["prompt_tokens"],
+                    "completion_tokens": usage_stats["completion_tokens"],
+                    "total_tokens": usage_stats["total_tokens"],
+                    "eval_prompt_tokens": eval_usage["prompt_tokens"],
+                    "eval_completion_tokens": eval_usage["completion_tokens"],
+                    "eval_total_tokens": eval_usage["total_tokens"],
+                    "timestamp": datetime.now(ZoneInfo("UTC"))
+                            }
         
         conversation_history = self.memory.get_conversation_history()
         prompt = self.build_prompt(query, search_results, conversation_history)
@@ -296,7 +555,7 @@ class RAGSystem:
         self.memory.add_message("assistant", response, metadata)
         
         return {
-            "id": conversation_id,
+           "id": conversation_id,
             "session_id": self.session_id,
             "question": query,
             "answer": response,
@@ -311,7 +570,7 @@ class RAGSystem:
             "eval_completion_tokens": eval_usage["completion_tokens"],
             "eval_total_tokens": eval_usage["total_tokens"],
             "timestamp": datetime.now(ZoneInfo("UTC"))
-        }
+                }
 
 def evaluate_relevance(question: str, answer: str, groq_client, model_choice: str = 'llama-3.1-70b-versatile') -> Tuple[str, str, Dict[str, Any]]:
     """Evaluates the relevance of an answer using the Groq LLM."""
@@ -380,56 +639,49 @@ def main():
     rag = RAGSystem(
         es_url=args.elastic_url,
         model_name='multi-qa-MiniLM-L6-cos-v1',
+        redis_url=args.redis_url,
         memory_expiration=3600
     )
+
     print("E-commerce Product Assistant")
     print("Type 'quit' or 'exit' to end the session")
     print("Type 'clear' to clear conversation history")
     print("-" * 50)
     
     while True:
-        # Get user input
         query = input("\nYour question: ").strip()
         
-        # Check for exit commands
         if query.lower() in ['quit', 'exit']:
             print("Goodbye!")
             break
         
-        # Check for clear history command
         if query.lower() == 'clear':
             rag.memory.clear_history()
             print("Conversation history cleared!")
             continue
         
-        # Skip empty queries
         if not query:
             continue
         
         try:
-            # Process the query
             result = rag.process_query(query, model=args.model)
-            
-            # Print the response
             print("\nAssistant:", result['answer'])
             
-            # Print evaluation results
             print("\n" + "="*20 + " Response Evaluation " + "="*20)
             print(f"Relevance: {result['relevance']}")
             print(f"Explanation: {result['relevance_explanation']}")
             
-            # Print detailed metadata
             print("\n" + "="*20 + " Response Metrics " + "="*20)
             print(f"Response time: {result['response_time']:.2f} seconds")
             print(f"Response tokens: {result['total_tokens']}")
             print(f"Evaluation tokens: {result['eval_total_tokens']}")
+            
             total_cost = calculate_groq_cost({
                 'prompt_tokens': result['prompt_tokens'] + result['eval_prompt_tokens'],
                 'completion_tokens': result['completion_tokens'] + result['eval_completion_tokens']
             })
             print(f"Total estimated cost: ${total_cost:.4f}")
             
-            # Get feedback
             feedback_result = rag.get_feedback(result['id'])
             print("\n" + "="*20 + " User Feedback " + "="*20)
             print(feedback_result)
